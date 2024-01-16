@@ -15,6 +15,11 @@
     <div id="street-view"></div>
     <div id="mini-map"></div>
 
+    <div id="results-menu" class="hidden">
+        <p id="distance-info">You guessed <span id="guess-distance">0</span> meters from the correct location.</p>
+        <button onclick="prepareNextRound()">Next Round</button>
+      </div>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&callback=initialize&libraries=&v=weekly" async></script>
     <script src="scripts/main.js"></script>
   </body>

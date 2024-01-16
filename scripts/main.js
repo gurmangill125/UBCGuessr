@@ -56,6 +56,10 @@ function calculateDistance(location1, location2) {
   return R * c; // in metres
 }
 
+function updateScoreDisplay() {
+  document.getElementById("score").textContent = "Score: " + score;
+}
+
 // Function to handle the guess and calculate the score.
 function makeGuess() {
   if (!guessMarker) {
@@ -65,11 +69,27 @@ function makeGuess() {
 
   const guessedLocation = guessMarker.getPosition().toJSON();
   const distance = calculateDistance(actualLocation, guessedLocation);
-  // Score calculation can be refined based on actual game design needs.
   score = Math.max(0, 5000 - Math.round(distance / 10));
+  updateScoreDisplay(); // Update the score on the page
 
-  alert('Your guess was ' + distance.toFixed(2) + ' meters away from the actual location. Your score: ' + score);
-  // Here we would typically move to the next round or reset the game.
+  // Show the results menu here (we'll implement this next)
+  showResultsMenu(distance);
+
+  // Prepare for the next round (we'll implement rounds after results menu)
+  prepareNextRound();
+}
+
+function showResultsMenu(distance) {
+  document.getElementById("guess-distance").textContent = distance.toFixed(2);
+  document.getElementById("results-menu").classList.remove("hidden");
+}
+
+function prepareNextRound() {
+  // Hide the results menu
+  document.getElementById("results-menu").classList.add("hidden");
+
+  // Here you would reset the Street View to a new location
+  // and clear the previous guess marker, but we'll implement that after rounds are added.
 }
 
 // Add the initialization function to the window object to be called when the Google Maps script is loaded.

@@ -1,0 +1,85 @@
+/* General styling */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Street View styling */
+#street-view {
+    flex: 1; /* Takes up all available space */
+    position: relative; /* For positioning the overlay */
+}
+
+
+#map-view {
+    width: 300px; /* Fixed width for the mini-map */
+    height: 200px; /* Fixed height for the mini-map */
+    position: absolute;
+    top: 10px; /* Positioning from the top inside Street View */
+    right: 10px; /* Positioning from the right inside Street View */
+    z-index: 10; /* Ensures the map is above Street View */
+}
+
+/* Game controls styling */
+#game-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #fff; /* White background for the controls */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Shadow for depth */
+}
+
+#guess-button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#guess-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+#score-display, #round-display {
+    padding: 10px 20px;
+    background-color: #f8f8f8; /* Light grey background */
+    border: 1px solid #ddd; /* Slight border */
+    margin: 0 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #game-container {
+        flex-direction: column-reverse;
+    }
+
+    #map-view {
+        height: 150px; /* Smaller map on smaller screens */
+    }
+}
+
+#map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5); /* Semi-transparent overlay */
+    z-index: 5;
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.gm-iv-address {
+    display: none;
+ }

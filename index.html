@@ -1,26 +1,22 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UBC Campus GeoGuessr Clone</title>
-    <link rel="stylesheet" type="text/css" href="styles/main.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  </head>
-  <body>
-    <div id="floating-panel">
-      <h1>Guess the location on UBC Campus!</h1>
-      <h2 id="score">Score: 0</h2>
-      <button onclick="makeGuess()">Guess</button>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&callback=initGame"></script>
+</head>
+<body>
+    <div id="game-container">
+        <div id="street-view"></div>
+        <div id="map-view"></div>
+        <div id="game-controls">
+            <button id="guess-button">Guess</button>
+            <div id="score-display">Score: 0</div>
+            <div id="round-display">Round: 1/5</div>
+        </div>
     </div>
-
-    <div id="street-view"></div>
-    <div id="mini-map"></div>
-
-    <div id="results-menu" class="hidden">
-        <p id="distance-info">You guessed <span id="guess-distance">0</span> meters from the correct location.</p>
-        <button onclick="prepareNextRound()">Next Round</button>
-      </div>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&callback=initialize&libraries=&v=weekly" async></script>
-    <script src="scripts/main.js"></script>
-  </body>
+</body>
 </html>

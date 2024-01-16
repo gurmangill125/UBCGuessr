@@ -1,201 +1,108 @@
-    let map, panorama, currentLocation, score = 0;
-    let miniMap, guessMarker, infoWindow;
+let map, streetView, panorama;
+let currentScore = 0;
+let currentRound = 1;
+let guessMarker; 
 
-    function initMap() {
-        // Set a random start location from predefined UBC locations
-        currentLocation = getRandomLocation();
+// Placeholder for UBC campus coordinates
+const ubcCoordinates = { lat: 49.2606, lng: -123.2460 };
 
-        // Initialize Street View Panorama
-        panorama = new google.maps.StreetViewPanorama(
-            document.getElementById('streetView'),
-            {
-                position: currentLocation,
-                pov: { heading: 34, pitch: 10 },
-                zoom: 1,
-                visible: true
-            }
-        );
-
-        // Initialize Map, but do not display it yet
-        map = new google.maps.Map(document.getElementById('mapPlaceholder'), {
-            center: currentLocation,
-            zoom: 15,
-            streetViewControl: false
-        });
-        map.setStreetView(panorama); // Bind the map to the Street View control
-
-        // Listen for the guess
-        document.getElementById('guessButton').addEventListener('click', makeGuess);
-    }
-
-    const locations = [
-        {lat: 49.267132, lng: -123.252494}, // UBC Rose Garden
-        {lat: 49.260605, lng: -123.245994}, // UBC Main Mall
-        {lat: 49.269929, lng: -123.258107}, // Museum of Anthropology
-        {lat: 49.260864, lng: -123.239336}, // UBC Thunderbird Arena
-        {lat: 49.264872, lng: -123.253070}  // UBC Biological Sciences Building
-    ];
-
-    function initGame() {
-        initMap(); // Initializes the Street View and main map
-        initMiniMap(currentLocation); // Initializes the mini-map but doesn't display it yet
-    }
-
-
-    function makeGuess() {
-        toggleMiniMap(true); // Show the mini-map for making a guess
-        // Hide the main map - we will show it later with the result
-        document.getElementById('mapPlaceholder').style.display = 'none'; 
-        // Disable the Street View interaction
-        panorama.setOptions({ disableDefaultUI: true, clickToGo: false, panControl: false, zoomControl: false });
-    }
-
-    function placeGuessMarker(location) {
-        if (guessMarker) {
-            guessMarker.setPosition(location); // Move the existing marker to the new location
-        } else {
-            guessMarker = new google.maps.Marker({
-                position: location,
-                map: miniMap,
-                title: "Your Guess",
-                draggable: true // Allow the player to drag and reposition the marker
-            });
-        }
-        // Show the result and then end the round
-        showGuessResult(location);
-    }
-
-
-
-    function startNewRound() {
-        // Reset the score if you want to start a new game
-        // score = 0; // Uncomment this line if you want to reset the score on a new round
-
-        currentLocation = getRandomLocation();
-        panorama.setPosition(currentLocation);
-        panorama.setPov({ heading: 34, pitch: 10 });
-        panorama.setVisible(true);
-        document.getElementById('streetView').style.display = 'block';
-        document.getElementById('mapPlaceholder').style.display = 'none';
-
-        // Reset the info window and polyline if they exist
-        if (infoWindow) {
-            infoWindow.close();
-            infoWindow = null;
-        }
-
-        // Initialize the mini-map for the new round
-        initMiniMap(currentLocation);
-        toggleMiniMap(false); // Ensure the mini-map is hidden until 'Make a Guess' is clicked again
-    }
-
-    function updateScore(distance) {
-    // Points calculation can be refined depending on desired difficulty
-    let points = Math.max(0, 10000 - Math.round(distance));
-    score += points;
-    document.getElementById('scoreBoard').innerText = 'Score: ' + score;
-    }
-
-    function getRandomLocation() {
-    return locations[Math.floor(Math.random() * locations.length)];
-    }
-
-
-// The initMiniMap function initializes the mini-map and adds the 'click' event listener
-function initMiniMap(location) {
-    miniMap = new google.maps.Map(document.getElementById('miniMap'), {
-        center: location,
-        zoom: 15
+function initGame() {
+    map = new google.maps.Map(document.getElementById('map-view'), {
+        center: ubcCoordinates,
+        zoom: 15,
+        streetViewControl: false, // Hide the default StreetView Pegman
+        mapTypeControl: false // Hide the map type control
     });
 
-    // Ensure any previous listeners are removed before adding a new one
-    google.maps.event.clearListeners(miniMap, 'click');
-    miniMap.addListener('click', function(mapsMouseEvent) {
-        // Confirm the guess before placing the marker
-        if (confirm('Confirm your guess here?')) {
-            placeGuessMarker(mapsMouseEvent.latLng);
+    panorama = new google.maps.StreetViewPanorama(
+        document.getElementById('street-view'),
+        {
+            position: ubcCoordinates,
+            pov: { heading: 165, pitch: 0 },
+            zoom: 1
         }
-    });
+    );
+
+    // Set the StreetView panorama into the map
+    map.setStreetView(panorama);
+
+    // Add click listener to map for placing/moving the guess marker
+    map.addListener('click', function(mapsMouseEvent) {
+      if (!guessMarker) {
+          // Create a new marker if it doesn't exist
+          guessMarker = new google.maps.Marker({
+              position: mapsMouseEvent.latLng,
+              map: map,
+              draggable: true
+          });
+      } else {
+          // Move the existing marker to the new location
+          guessMarker.setPosition(mapsMouseEvent.latLng);
+      }
+  });
+
+    // Event listener for the guess button
+    document.getElementById('guess-button').addEventListener('click', makeGuess);
 }
 
+function calculateDistance(actualLocation, guessedLocation) {
+  return google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(actualLocation),
+      new google.maps.LatLng(guessedLocation)
+  );
+}
 
+function makeGuess() {
+    // Placeholder function for making a guess
+    alert('Guess made!');
 
-    function toggleMiniMap(show) {
-        document.getElementById('miniMapContainer').style.display = show ? 'block' : 'none';
-    }
+    if (!guessMarker) {
+      alert('Please place your guess on the map first!');
+      return;
+  }
 
+  const confirmGuess = confirm('Are you sure about your guess?');
+  if (confirmGuess) {
 
-    function showGuessResult(guessPosition) {
-        const distance = google.maps.geometry.spherical.computeDistanceBetween(guessPosition, currentLocation);
-        const points = Math.max(0, 10000 - Math.round(distance)); // Example scoring formula
-        score += points;
-        
-        const contentString = `
-            <div style="color: black;">
-                <p>Your guess was ${distance.toFixed(2)} meters (${(distance / 1000).toFixed(2)} km) from the correct location.</p>
-                <p>You earned another ${points} points.</p>
-            </div>
-        `;
+    const guessedLocation = guessMarker.getPosition();
+    const actualLocation = panorama.getPosition();
+    const distance = calculateDistance(actualLocation, guessedLocation);
 
-        if (infoWindow) infoWindow.close(); // Close the previous info window if any
+    // You would add logic here to compare the guess to the actual location
+    // Update the score and round info
+    const scoreToAdd = Math.max(0, 100 - Math.round(distance / 10));
+    currentScore += scoreToAdd;
+    currentRound += 1; // Move to the next round
 
-        infoWindow = new google.maps.InfoWindow({
-            content: contentString,
-            position: guessPosition
-        });
-        infoWindow.open(map);
+    // Update the display
+    document.getElementById('score-display').innerText = 'Score: ' + currentScore;
+    document.getElementById('round-display').innerText = 'Round: ' + currentRound + '/5';
 
-        // Draw a line between the guess and the actual location
-        const line = new google.maps.Polyline({
-            path: [guessPosition, currentLocation],
-            geodesic: true,
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 2
-        });
+    // Logic to move to the next location or end the game would go here
+}
+}
 
-        line.setMap(map);
+// Placeholder function to pick a random location on the UBC campus
+function getRandomLocation() {
+    // Logic to get a random location would go here
+    return ubcCoordinates; // Placeholder return
+}
 
-        // Update the score display
-        document.getElementById('scoreBoard').innerText = 'Score: ' + score;
+// Function to update the location for a new round
+function updateLocation() {
+    let newLocation = getRandomLocation();
+    panorama.setPosition(newLocation);
+}
 
-        // Disable further guessing by removing the guess marker and clearing event listeners
-        if (guessMarker) {
-            guessMarker.setMap(null); // Remove the guess marker
-            guessMarker = null;
-        }
-        google.maps.event.clearListeners(miniMap, 'click');
+// Function to reset the game
+function resetGame() {
+    currentScore = 0;
+    currentRound = 1;
+    updateLocation();
+    // Update the display
+    document.getElementById('score-display').innerText = 'Score: ' + currentScore;
+    document.getElementById('round-display').innerText = 'Round: ' + currentRound + '/5';
+}
 
-        // After showing the result, ask the user if they want to continue to the next round
-        setTimeout(() => {
-            if (confirm('Play next round?')) {
-                startNewRound();
-            } else {
-                // Here you can handle the action for viewing the summary or ending the game
-                // For example, show a game summary or leaderboard
-            }
-        }, 5000); // Wait 5 seconds before showing the prompt
-    }
-
-
-    miniMap.addListener('click', function(mapsMouseEvent) {
-        if (guessMarker) guessMarker.setMap(null); // Remove the previous guess marker if it exists
-
-        // Place the guess marker at the location the player clicked
-        guessMarker = new google.maps.Marker({
-            position: mapsMouseEvent.latLng,
-            map: miniMap,
-            title: "Your Guess",
-            draggable: true // Allow the player to drag and reposition the marker
-        });
-
-        // Bind the drag end event to update the guess position
-        guessMarker.addListener('dragend', function() {
-            showGuessResult(guessMarker.getPosition());
-        });
-    });
-
-// Initialize the game inside an onload handler to ensure all elements are loaded
-window.onload = function() {
-    initGame(); // Call initGame here, not initMap
-};
+// Call resetGame to start a new game
+resetGame();

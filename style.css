@@ -39,3 +39,23 @@ button {
     font-size: 20px;
     margin-top: 20px;
 }
+
+#miniMapContainer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    height: 200px;
+    display: none; /* Initially hidden */
+    z-index: 10; /* Make sure it's above other elements */
+    border: 3px solid #0b0b8d; /* Add a border to match the button color */
+    border-radius: 4px; /* Optional: to match the button styling */
+}
+
+button:hover {
+    background-color: #0a0a7a; /* Slightly darker blue when hovered */
+}
+button:active {
+    transform: scale(0.98); /* Slightly smaller when clicked */
+}
+

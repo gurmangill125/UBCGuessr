@@ -4,16 +4,21 @@
     <title>UBC Campus GeoGuessr</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <script src="script.js"></script> <!-- Moved up here and removed async defer -->
+    <!-- Ensure script.js is loaded asynchronously and deferred -->
+    <script src="script.js" async defer></script>
 </head>
 <body>
     <div id="gameContainer">
-        <div id="streetView" style="height: 500px; display: block;"></div> <!-- Set a fixed height -->
-        <div id="mapPlaceholder" style="height: 500px; display: none;"></div> <!-- Set a fixed height -->
+        <div id="streetView" style="height: 500px;"></div>
+        <div id="mapPlaceholder" style="height: 500px; display: none;"></div>
         <button id="guessButton">Make a Guess</button>
         <div id="scoreBoard">Score: 0</div>
+        <!-- Mini-map container; make sure the ID is unique and used only once -->
+        <div id="miniMapContainer" style="position: absolute; bottom: 10px; right: 10px; width: 300px; height: 200px; display: none;">
+            <div id="miniMap" style="width: 100%; height: 100%;"></div>
+        </div>
     </div>
-    <!-- Your API Key should not be exposed like this, consider using environment variables -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&libraries=geometry&callback=initMap"></script>
+    <!-- Replace with your actual API key and ensure it is kept secure and not exposed in public repositories -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&libraries=geometry&callback=initGame" async defer></script>
 </body>
 </html>

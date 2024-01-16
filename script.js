@@ -24,8 +24,12 @@ function initMap() {
     map.setStreetView(panorama); // Bind the map to the Street View control
 
     // Listen for the guess
-    document.getElementById('guessButton').addEventListener('click', make Guess);
+    document.getElementById('guessButton').addEventListener('click', makeGuess);
 }
+
+const locations = [
+    { lat: 49.2606, lng: -123.2460 }, // Example coordinates for UBC location
+];
 
 function makeGuess() {
 // Show the map for guessing

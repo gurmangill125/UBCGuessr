@@ -4,17 +4,16 @@
     <title>UBC Campus GeoGuessr</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <script src="script.js"></script> <!-- Moved up here and removed async defer -->
 </head>
 <body>
     <div id="gameContainer">
-        <div id="streetView" style="height: 100%; display: block;"></div>
-        <div id="mapPlaceholder" style="height: 100%; display: none;"></div>
+        <div id="streetView" style="height: 500px; display: block;"></div> <!-- Set a fixed height -->
+        <div id="mapPlaceholder" style="height: 500px; display: none;"></div> <!-- Set a fixed height -->
         <button id="guessButton">Make a Guess</button>
         <div id="scoreBoard">Score: 0</div>
     </div>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&callback=initMap">
-</script>
-    <script src="script.js"></script>
+    <!-- Your API Key should not be exposed like this, consider using environment variables -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&libraries=geometry&callback=initMap"></script>
 </body>
 </html>

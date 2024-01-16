@@ -1,23 +1,81 @@
-let score = 0;
+let map, panorama, currentLocation, score = 0;
 
-document.getElementById('guessButton').addEventListener('click', function() {
-    // This function will be expanded to handle the guessing logic
-    alert('Guess button clicked!');
+function initMap() {
+    // Set a random start location from predefined UBC locations
+    currentLocation = getRandomLocation();
 
-    // For now, let's just increase the score by 1 for each guess
-    score++;
-    updateScore();
+    // Initialize Street View Panorama
+    panorama = new google.maps.StreetViewPanorama(
+        document.getElementById('streetView'),
+        {
+            position: currentLocation,
+            pov: { heading: 34, pitch: 10 },
+            zoom: 1,
+            visible: true
+        }
+    );
+
+    // Initialize Map, but do not display it yet
+    map = new google.maps.Map(document.getElementById('mapPlaceholder'), {
+        center: currentLocation,
+        zoom: 15,
+        streetViewControl: false
+    });
+    map.setStreetView(panorama); // Bind the map to the Street View control
+
+    // Listen for the guess
+    document.getElementById('guessButton').addEventListener('click', make Guess);
+}
+
+function makeGuess() {
+// Show the map for guessing
+document.getElementById('streetView').style.display = 'none';
+document.getElementById('mapPlaceholder').style.display = 'block';
+
+// Listen for the map click event to get the guess location
+map.addListener('click', function(mapsMouseEvent) {
+    // Remove previous listener to prevent multiple guess submissions
+    google.maps.event.clearListeners(map, 'click');
+
+    // Show the guessed marker
+    let guessMarker = new google.maps.Marker({
+        position: mapsMouseEvent.latLng,
+        map: map,
+        title: "Your Guess"
+    });
+
+    // Calculate distance between guess and actual location
+    let distance = google.maps.geometry.spherical.computeDistanceBetween(
+        currentLocation, guessMarker.getPosition());
+
+    // Convert distance to points and update the score
+    updateScore(distance);
+
+    // Prepare for the next round
+    setTimeout(startNewRound, 3000); // Wait 3 seconds before starting the next round
 });
 
-function updateScore() {
-    document.getElementById('scoreBoard').innerText = 'Score: ' + score;
 }
 
-// Initialization function
-function initGame() {
-    // Game initialization logic will go here
-    console.log('Game initialized');
+function startNewRound() {
+// Reset the map and panorama for the next round
+currentLocation = getRandomLocation();
+panorama.setPosition(currentLocation);
+document.getElementById('streetView').style.display = 'block';
+document.getElementById('mapPlaceholder').style.display = 'none';
+panorama.setVisible(true);
 }
 
-// Initialize the game when the window loads
-window.onload = initGame;
+function updateScore(distance) {
+// Points calculation can be refined depending on desired difficulty
+let points = Math.max(0, 10000 - Math.round(distance));
+score += points;
+document.getElementById('scoreBoard').innerText = 'Score: ' + score;
+}
+
+function getRandomLocation() {
+return locations[Math.floor(Math.random() * locations.length)];
+}
+
+// Initialize the game
+initMap();

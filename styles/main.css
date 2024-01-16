@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+#street-view {
+    height: 75%;
+    width: 100%;
+}
+
+#mini-map {
+    height: 25%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+#floating-panel {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    line-height: 30px;
+    width: 300px;
+}
+
+button {
+    width: 100px;
+    height: 25px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

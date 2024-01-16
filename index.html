@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>UBC Campus GeoGuessr</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <!-- Ensure script.js is loaded asynchronously and deferred -->
-    <script src="script.js" async defer></script>
-</head>
-<body>
-    <div id="gameContainer">
-        <div id="streetView" style="height: 500px;"></div>
-        <div id="mapPlaceholder" style="height: 500px; display: none;"></div>
-        <button id="guessButton">Make a Guess</button>
-        <div id="scoreBoard">Score: 0</div>
-        <!-- Mini-map container; make sure the ID is unique and used only once -->
-        <div id="miniMapContainer" style="position: absolute; bottom: 10px; right: 10px; width: 300px; height: 200px; display: none;">
-            <div id="miniMap" style="width: 100%; height: 100%;"></div>
-        </div>
+  <head>
+    <title>UBC Campus GeoGuessr Clone</title>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  </head>
+  <body>
+    <div id="floating-panel">
+      <h1>Guess the location on UBC Campus!</h1>
+      <h2 id="score">Score: 0</h2>
+      <button onclick="makeGuess()">Guess</button>
     </div>
-    <!-- Replace with your actual API key and ensure it is kept secure and not exposed in public repositories -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&libraries=geometry&callback=initGame" async defer></script>
-</body>
+
+    <div id="street-view"></div>
+    <div id="mini-map"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4QptFw5QW7SdqSTRCiMsGTILfeTthoPs&callback=initialize&libraries=&v=weekly" async></script>
+    <script src="scripts/main.js"></script>
+  </body>
 </html>

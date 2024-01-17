@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <title>UBC Campus GeoGuessr Clone</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
@@ -10,10 +11,16 @@
 </head>
 <body>
     <div id="game-container">
+        <img src="assets/logo.png" alt="Game Logo" id="game-logo" />
+<div id="game-over-menu">
+    <h2>Game Over!</h2>
+    <p id="final-score"></p>
+    <button onclick="restartGame()">Restart Game</button>
+</div>  
         <div id="street-view"></div>
         <div id="map-view"></div>
         <div id="game-controls">
-            <button id="guess-button">Guess</button>
+            <button id="guess-button">Confirm Guess</button>
             <div id="score-display">Score: 0</div>
             <div id="round-display">Round: 1/5</div>
         </div>

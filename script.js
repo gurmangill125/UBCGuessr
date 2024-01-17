@@ -2,6 +2,8 @@ let map, streetView, panorama;
 let currentScore = 0;
 let currentRound = 1;
 let guessMarker; 
+let timeLeft = 90;
+let timerId;
 
 const ubcCoordinates = { lat: 49.2606, lng: -123.2460 };
 
@@ -117,7 +119,6 @@ function makeGuess() {
     const actualLocation = panorama.getPosition();
     const distance = calculateDistance(actualLocation, guessedLocation);
 
-    // You would add logic here to compare the guess to the actual location
     // Update the score and round info
     const scoreToAdd = Math.max(0, 100 - Math.round(distance / 10));
     currentScore += scoreToAdd;
@@ -196,13 +197,36 @@ function resetGame() {
 
   currentScore = 0;
   currentRound = 1;
+  resetTimer()
   updateLocation();
   // Update the display
   document.getElementById('score-display').innerText = 'Score: ' + currentScore;
   document.getElementById('round-display').innerText = 'Round: ' + currentRound + '/5';
 }
 
+function startTimer() {
+  timerId = setInterval(updateTimer, 1000); // Update every second
+}
 
+function updateTimer() {
+  if (timeLeft <= 0) {
+    clearInterval(timerId);
+    timeRanOut();
+  } else {
+    document.getElementById('timer-display').innerText = 'Time : ' + timeLeft + 's';
+    timeLeft--;
+  }
+}
 
-// Call resetGame to start a new game
+function timeRanOut() {
+  alert("Time's up, restarting game!");
+  resetGame();
+}
+
+function resetTimer() {
+  clearInterval(timerId);
+  timeLeft = 90;
+  startTimer();
+}
+
 resetGame();

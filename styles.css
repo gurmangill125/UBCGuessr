@@ -57,7 +57,7 @@ body, html {
     z-index: 10;
     padding: 10px 20px;
     background-image: linear-gradient(to right, #0b0061, #0f0093); /* Blue gradient background */
-    color: white;
+    color: #e9b600;
     border-radius: 10px;
     border: none;
     font-family: 'Inter', sans-serif;
@@ -70,10 +70,10 @@ body, html {
 
 #score-display, #round-display {
     padding: 10px 20px;
-    color: white;
+    color: #e9b600;
     background-image: linear-gradient(to right, #0b0061, #0f0093); /* Blue gradient background */
     background-color: #f8f8f8; /* Light grey background */
-    border: 1px solid #ddd; /* Slight border */
+    border: 1px solid #e9b600; /* Slight border */
     margin: 0 10px;
     border-radius: 10px; 
     opacity: 1;
@@ -150,7 +150,7 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(7, 0, 98, 0.7);
     color: #fff;
     padding: 10px;
     border-radius: 10px;

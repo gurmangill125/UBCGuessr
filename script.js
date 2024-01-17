@@ -63,12 +63,13 @@ function initGame() {
     });
 
     panorama = new google.maps.StreetViewPanorama(
-        document.getElementById('street-view'),
-        {
-            position: ubcCoordinates,
-            pov: { heading: 165, pitch: 0 },
-            zoom: 1
-        }
+      document.getElementById('street-view'), {
+          position: ubcCoordinates,
+          pov: { heading: 165, pitch: 0 },
+          zoom: 1,
+          disableDefaultUI: true, // Disable the default UI to hide controls
+          showRoadLabels: false // Attempt to hide road labels if this option is available
+      }
     );
 
     // Set the StreetView panorama into the map
@@ -201,15 +202,6 @@ function resetGame() {
   document.getElementById('round-display').innerText = 'Round: ' + currentRound + '/5';
 }
 
-panorama = new google.maps.StreetViewPanorama(
-  document.getElementById('street-view'), {
-      position: ubcCoordinates,
-      pov: { heading: 165, pitch: 0 },
-      zoom: 1,
-      disableDefaultUI: true, // Disable the default UI to hide controls
-      showRoadLabels: false // Attempt to hide road labels if this option is available
-  }
-);
 
 
 // Call resetGame to start a new game

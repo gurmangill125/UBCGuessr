@@ -2,7 +2,7 @@ let map, streetView, panorama;
 let currentScore = 0;
 let currentRound = 1;
 let guessMarker; 
-let timeLeft = 90;
+let timeLeft = 60;
 let timerId;
 
 const ubcCoordinates = { lat: 49.2606, lng: -123.2460 };
@@ -124,6 +124,7 @@ function makeGuess() {
     currentScore += scoreToAdd;
     showPointsEarned(scoreToAdd); 
     currentRound += 1;
+    resetTimer()
     
     if (currentRound > 5) {
       showGameOverMenu();
@@ -225,7 +226,7 @@ function timeRanOut() {
 
 function resetTimer() {
   clearInterval(timerId);
-  timeLeft = 90;
+  timeLeft = 60;
   startTimer();
 }
 

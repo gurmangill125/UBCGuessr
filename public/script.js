@@ -55,6 +55,29 @@ const ubcLocations = [
   { lat: 49.2620, lng: -123.2448 }, // UBC David Lam Management Research Library
 ];
 
+document.addEventListener('DOMContentLoaded', function() {
+  // Get buttons from the DOM
+  const startGameButton = document.getElementById('start-game');
+  const instructionsButton = document.getElementById('instructions');
+  const mainMenu = document.getElementById('main-menu');
+  const gameContainer = document.getElementById('game-container');
+
+  // Start game function
+  startGameButton.addEventListener('click', function() {
+      mainMenu.style.display = 'none'; // Hide main menu
+      gameContainer.style.display = 'flex'; // Show game interface
+      initGame(); // Initialize the game
+  });
+
+  // Show instructions
+  instructionsButton.addEventListener('click', function() {
+      alert("Welcome to UBCGuessr! In this game, you'll be dropped at a random location on the UBC campus. Your task is to guess where you are. Navigate using the street view and then make your guess on the map, the closer you are, the more points you get. Good luck!");
+  });
+
+  // Initially hide the game container until the game starts
+  gameContainer.style.display = 'none';
+});
+
 
 function initGame() {
     map = new google.maps.Map(document.getElementById('map-view'), {
@@ -231,3 +254,4 @@ function resetTimer() {
 }
 
 resetGame();
+

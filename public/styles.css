@@ -4,6 +4,46 @@ body, html {
     font-family: Inter, sans-serif;
 }
 
+/* Main Menu Styles */
+#main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #000f62, #3f2aff);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+#main-logo {
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+#main-menu button {
+    background-color: #ffae00;
+    color: rgb(255, 255, 255);
+    padding: 15px 32px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; 
+}
+
+#main-menu button:hover {
+    background-color: #d89400; 
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    #main-menu button {
+        width: 80%; 
+    }
+}
+
 #game-container {
     display: flex;
     flex-direction: column;
@@ -180,3 +220,4 @@ body, html {
     font-size: 1.2em; 
     z-index: 20; 
 }
+

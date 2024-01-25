@@ -2,11 +2,11 @@
     <img src="https://i.imgur.com/0V2umSZ.png" alt="UBCGeoGuessr Logo" width="400px"/>
 </div>
 
-# UBCGeoGuessr (GeoGuessr Clone Game)
+# UBCGuessr (GeoGuessr Clone Game)
 
 ## About the Project
 
-UBCGeoGuessr is an interactive web game inspired by the popular game, GeoGuessr. Set in the beautiful University of British Columbia (UBC) campus, players are dropped at random locations and tasked with guessing their whereabouts on a map. This project utilizes Google Maps API for a fun and immersive experience.
+UBCGuessr is an interactive web game inspired by the popular game, GeoGuessr. Set in the beautiful University of British Columbia (UBC) campus, players are dropped at random locations and tasked with guessing their whereabouts on a map. This project utilizes Google Maps API for a fun and immersive experience.
 
 <div align="center">
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzUxMGw2MWRwdXY1eXh6Z3hwMHJrN3BobzBwb3FvZTl1YTh0dDk1ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RMWBTYOBIZgRzn8D3i/giphy.gif" alt="UBCGeoGuessr Gameplay" width="600px"/>
@@ -41,7 +41,7 @@ To get a local copy up and running, follow these simple steps.
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/gurmangill125/UBCGeoGuessr.git
+   git clone https://github.com/gurmangill125/UBCGuessr.git
    ```
 2. Open `index.html` in your web browser.
 

@@ -8,6 +8,8 @@
 
 UBCGuessr is an interactive web game inspired by the popular game, GeoGuessr. Set in the beautiful University of British Columbia (UBC) campus, players are dropped at random locations and tasked with guessing their whereabouts on a map. This project utilizes Google Maps API for a fun and immersive experience.
 
+**If you would like to play without installation or an API key, you can visit https://gurmangill125.github.io/UBCGuessr/**
+
 <div align="center">
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzUxMGw2MWRwdXY1eXh6Z3hwMHJrN3BobzBwb3FvZTl1YTh0dDk1ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RMWBTYOBIZgRzn8D3i/giphy.gif" alt="UBCGeoGuessr Gameplay" width="600px"/>
 </div>
@@ -43,7 +45,7 @@ To get a local copy up and running, follow these simple steps.
    ```sh
    git clone https://github.com/gurmangill125/UBCGuessr.git
    ```
-2. Open `index.html` in your web browser.
+2. Open `index.html` in your web browser. Remember to replace the API key in the script tag of `index.html`
 
 3. Start exploring UBC campus and guessing locations!
 
